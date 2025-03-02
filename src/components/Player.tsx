@@ -1,24 +1,31 @@
 import React from "react";
+import { useState } from "react";
 interface Props{
-  name:string;
+  initialName:string;
   symbol:string;
 }
 
-export default function Player ({name,symbol}:Props){
+export default function Player ({initialName,symbol}:Props){
   const [isEditing,setIsEditing]= React.useState<boolean>(false);
   function handleClick(){
     setIsEditing((editing)=>!editing);
   }
-
-  let playerName= <span className="player-name" >{name}</span>;
+  function handleChangeEvent(e:React.ChangeEvent<HTMLInputElement>){
+    const newValue = e.target.value;
+    setPlayerName(newValue);
+  }
+  const [playerName,setPlayerName]= useState<string>(initialName)
+  let editablePlayerName= <span className="player-name" >{playerName}</span>;
   if(isEditing){
-    playerName=<input title="name" placeholder="" value={name} type="text" required />
+    editablePlayerName=<input title="name" 
+    onChange={handleChangeEvent} 
+    placeholder="" value={playerName} type="text" required />
   };
 
     return(
         <li>
         <span className="player">
-          {playerName}
+          {editablePlayerName}
         <span className="player-symbol" >{symbol}</span>
         </span>
         <button type="button" 
