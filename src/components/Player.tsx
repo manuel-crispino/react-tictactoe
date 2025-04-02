@@ -3,9 +3,10 @@ import { useState } from "react";
 interface Props{
   initialName:string;
   symbol:string;
+  isActive: boolean;
 }
 
-export default function Player ({initialName,symbol}:Props){
+export default function Player ({initialName,symbol,isActive}:Props){
   const [isEditing,setIsEditing]= React.useState<boolean>(false);
   function handleClick(){
     setIsEditing((editing)=>!editing);
@@ -23,7 +24,7 @@ export default function Player ({initialName,symbol}:Props){
   };
 
     return(
-        <li>
+        <li className={isActive ? "active":undefined}>
         <span className="player">
           {editablePlayerName}
         <span className="player-symbol" >{symbol}</span>
