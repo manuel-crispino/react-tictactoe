@@ -8,13 +8,31 @@ const initialGameBoard : (string | null)[][] = [
     ],
     [null, null, null]
 ];
-interface Props{
-  onSelectSquare: ()=>void;
-  activePlayerSymbol:string;
-}
 
-export function GameBoard({onSelectSquare,activePlayerSymbol}:Props) {
-    const [gameBoard,
+interface Square {
+    row: number;
+    col: number;
+  }
+  
+  interface Turn {
+    square: Square;
+    player: string;
+  }
+  
+  interface Props {
+    onSelectSquare: (rowIndex:number,colIndex:number) => void;
+    turns: Turn[];
+  }
+
+export function GameBoard({onSelectSquare,turns}:Props) {
+    let gameBoard = initialGameBoard;
+    for(const turn of turns){
+        const {square,player} =turn;
+        const {row,col} = square; 
+        gameBoard[row][col]= player;
+    }
+
+ /*    const [gameBoard,
         setGameBoard] = React.useState(initialGameBoard);
 
     function handleSelectSquare(rowIndex : number, colIndex : number) {
@@ -25,7 +43,7 @@ export function GameBoard({onSelectSquare,activePlayerSymbol}:Props) {
             return updatedBoard;
         });
         onSelectSquare();
-    }
+    } */
     return (
         <ol id="game-board">
             {gameBoard.map((row, rowIndex) => (
@@ -33,7 +51,7 @@ export function GameBoard({onSelectSquare,activePlayerSymbol}:Props) {
                     <ol>
                         {row.map((playerSymbol, colIndex) => (
                             <li key={colIndex}>
-                                <button onClick={() => handleSelectSquare(rowIndex, colIndex)}
+                                <button onClick={()=>onSelectSquare(rowIndex,colIndex)}
                                  type="button">{playerSymbol}</button>
                             </li>
                         ))}
