@@ -3,7 +3,7 @@ import Player from "./components/Player.tsx"
 import { GameBoard } from "./components/GameBoard.tsx"
 import Log from "./components/Log.tsx";
 import { WINNING_COMBINATIONS } from "./winningCombinations.js";
-import GameOver from "./components/gameOver.tsx";
+import GameOver from "./components/GameOver.tsx";
 
 const PLAYERS={
   X: "Player 1",
