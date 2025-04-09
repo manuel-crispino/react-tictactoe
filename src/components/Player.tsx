@@ -4,12 +4,15 @@ interface Props{
   initialName:string;
   symbol:string;
   isActive: boolean;
+  onChangeName:(symbol:string , playerName:string)=>void;
 }
 
-export default function Player ({initialName,symbol,isActive}:Props){
+export default function Player ({initialName,symbol,isActive,onChangeName}:Props){
   const [isEditing,setIsEditing]= React.useState<boolean>(false);
   function handleClick(){
     setIsEditing((editing)=>!editing);
+    if (isEditing){
+    onChangeName(symbol,playerName)};
   }
   function handleChangeEvent(e:React.ChangeEvent<HTMLInputElement>){
     const newValue = e.target.value;
